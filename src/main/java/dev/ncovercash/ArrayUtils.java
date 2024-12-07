@@ -1,0 +1,35 @@
+package dev.ncovercash;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
+public class ArrayUtils {
+
+  public static List<Character> stringToCharacterList(String in) {
+    List<Character> result = new ArrayList<>();
+    for (char c : in.toCharArray()) {
+      result.add(c);
+    }
+    return result;
+  }
+
+  public static <T> List<T> getColumn(Collection<List<T>> list, int col) {
+    return list.stream().map(row -> row.get(col)).toList();
+  }
+
+  public static <T> int countOccurrences(Collection<T> haystack, T needle) {
+    return (int) haystack.stream().filter(needle::equals).count();
+  }
+
+  public static <T> int countOccurrencesCached(
+    Map<T, Integer> cache,
+    Collection<T> haystack,
+    T needle
+  ) {
+    return cache.computeIfAbsent(needle, k -> countOccurrences(haystack, k));
+  }
+}

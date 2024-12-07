@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import lombok.experimental.UtilityClass;
 
@@ -32,6 +33,17 @@ public class InputUtils {
     }
 
     return lines.subList(0, lastNonEmpty);
+  }
+
+  public static List<List<String>> getDelimitedLines(
+    String filename,
+    Pattern delimiter
+  ) {
+    return getLines(filename)
+      .stream()
+      .map(delimiter::split)
+      .map(List::of)
+      .toList();
   }
 
   public static List<List<Character>> getCharacterArray(String filename) {
@@ -68,13 +80,5 @@ public class InputUtils {
     collection.add(clump);
 
     return collection.stream().filter(cl -> !cl.isEmpty()).toList();
-  }
-
-  public static List<Character> stringToCharacterList(String in) {
-    List<Character> result = new ArrayList<>();
-    for (char c : in.toCharArray()) {
-      result.add(c);
-    }
-    return result;
   }
 }
