@@ -1,12 +1,12 @@
 package dev.ncovercash.y2024;
 
 import dev.ncovercash.ArrayUtils;
+import dev.ncovercash.CommonConstants;
 import dev.ncovercash.InputUtils;
 import dev.ncovercash.Solution;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 import lombok.extern.log4j.Log4j2;
 
@@ -17,7 +17,7 @@ public class Day1 implements Solution {
   public String completeChallengePartOne(String filename) {
     List<List<String>> lines = InputUtils.getDelimitedLines(
       filename,
-      Pattern.compile("\\s+")
+      CommonConstants.WHITESPACE_REGEX
     );
 
     List<List<Integer>> numbers = lines
@@ -51,7 +51,7 @@ public class Day1 implements Solution {
   public String completeChallengePartTwo(String filename) {
     List<List<String>> lines = InputUtils.getDelimitedLines(
       filename,
-      Pattern.compile("\\s+")
+      CommonConstants.WHITESPACE_REGEX
     );
 
     List<List<Integer>> numbers = lines

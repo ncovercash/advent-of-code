@@ -32,4 +32,12 @@ public class ArrayUtils {
   ) {
     return cache.computeIfAbsent(needle, k -> countOccurrences(haystack, k));
   }
+
+  public static List<Integer> toIntegers(List<String> strings) {
+    return strings.stream().map(Integer::parseInt).toList();
+  }
+
+  public static List<List<Integer>> to2DIntegers(List<List<String>> strings) {
+    return strings.stream().map(ArrayUtils::toIntegers).toList();
+  }
 }
