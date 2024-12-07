@@ -35,6 +35,22 @@ public class InputUtils {
     return lines.subList(0, lastNonEmpty);
   }
 
+  public static String getString(String filename) {
+    InputStream in = InputUtils.getClasspathFile(filename);
+
+    StringBuilder builder = new StringBuilder();
+
+    try (Scanner scanner = new Scanner(in)) {
+      while (scanner.hasNextLine()) {
+        String line = scanner.nextLine();
+        builder.append(line);
+        builder.append("\n");
+      }
+    }
+
+    return builder.toString().trim();
+  }
+
   public static List<List<String>> getDelimitedLines(
     String filename,
     Pattern delimiter
