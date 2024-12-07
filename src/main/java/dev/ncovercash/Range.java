@@ -8,10 +8,10 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-class Range implements Comparable<Range> {
+public class Range implements Comparable<Range> {
 
-  int min;
-  int max;
+  private int min;
+  private int max;
 
   @Override
   public int compareTo(Range y) {

@@ -1,3 +1,5 @@
-# Advent Of Code 2023
+# Advent of Code
 
-This repository contains my code for the [2023 Advent of Code](https://adventofcode.com/2023)!
+This repository contains my code for the [Advent of Code](https://adventofcode.com/), starting in
+2023! [2022](https://github.com/ncovercash/advent-of-code-2022) and
+[2021](https://github.com/ncovercash/advent-of-code-2021) are in separate repositories.
