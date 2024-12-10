@@ -15,7 +15,7 @@ class Day10Test extends DayTest {
   static List<Arguments> testCases() {
     return List.of(
       Arguments.of("y2024/10/example.txt", "36", "81"),
-      Arguments.of("y2024/10/input.txt", "746", "")
+      Arguments.of("y2024/10/input.txt", "746", "1541")
     );
   }
 }

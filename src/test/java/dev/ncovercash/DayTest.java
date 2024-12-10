@@ -23,8 +23,9 @@ public abstract class DayTest {
 
       String actual = instance.completeChallengePartOne(filename);
       log.info(
-        "{} Part 1: {} in {}ms",
+        "{} {} Part 1: {} in {}ms",
         instance.getClass().getSimpleName(),
+        filename,
         actual,
         (int) System.currentTimeMillis() - start
       );
@@ -37,8 +38,9 @@ public abstract class DayTest {
 
       String actual = instance.completeChallengePartTwo(filename);
       log.info(
-        "{} Part 2: {} in {}ms",
+        "{} {} Part 2: {} in {}ms",
         instance.getClass().getSimpleName(),
+        filename,
         actual,
         (int) System.currentTimeMillis() - start
       );
