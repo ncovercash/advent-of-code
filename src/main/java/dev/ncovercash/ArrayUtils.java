@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -39,5 +40,16 @@ public class ArrayUtils {
 
   public static List<List<Integer>> to2DIntegers(List<List<String>> strings) {
     return strings.stream().map(ArrayUtils::toIntegers).toList();
+  }
+
+  public static List<String> transposeText(List<String> input) {
+    return IntStream
+      .range(0, input.get(0).length())
+      .mapToObj(i ->
+        String.valueOf(
+          input.stream().map(row -> row.charAt(i)).toArray(Character[]::new)
+        )
+      )
+      .toList();
   }
 }
