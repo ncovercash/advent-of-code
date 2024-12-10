@@ -3,9 +3,6 @@ package dev.ncovercash.y2024;
 import dev.ncovercash.InputUtils;
 import dev.ncovercash.Solution;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.regex.MatchResult;
-import java.util.regex.Pattern;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
