@@ -52,4 +52,16 @@ public class ArrayUtils {
       )
       .toList();
   }
+
+  public static <T> T getOrDefault(
+    List<List<T>> list,
+    int r,
+    int c,
+    T defaultValue
+  ) {
+    if (r < 0 || r >= list.size() || c < 0 || c >= list.get(r).size()) {
+      return defaultValue;
+    }
+    return list.get(r).get(c);
+  }
 }
