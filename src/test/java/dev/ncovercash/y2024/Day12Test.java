@@ -17,7 +17,7 @@ class Day12Test extends DayTest {
       Arguments.of("y2024/12/example1.txt", "140", "80"),
       Arguments.of("y2024/12/example2.txt", "772", "436"),
       Arguments.of("y2024/12/example3.txt", "1930", "1206"),
-      Arguments.of("y2024/12/input.txt", "1473620", "")
+      Arguments.of("y2024/12/input.txt", "1473620", "902620")
     );
   }
 }
