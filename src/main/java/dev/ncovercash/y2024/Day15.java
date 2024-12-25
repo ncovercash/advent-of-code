@@ -2,11 +2,11 @@ package dev.ncovercash.y2024;
 
 import dev.ncovercash.InputUtils;
 import dev.ncovercash.Solution;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -96,7 +96,7 @@ public class Day15 implements Solution {
       }
     }
 
-    print(map, robot);
+    // print(map, robot);
 
     for (int c : instructions.chars().toArray()) {
       Pair<Integer, Integer> direction =
@@ -114,7 +114,7 @@ public class Day15 implements Solution {
     int sum = 0;
     for (int r = 0; r < map.length; r++) {
       for (int c = 0; c < map[r].length; c++) {
-        if (map[r][c] == Cell.BOX) {
+        if (map[r][c] == Cell.BOX_LEFT) {
           sum += 100 * r + c;
         }
       }
@@ -144,61 +144,101 @@ public class Day15 implements Solution {
     }
   }
 
-  private Pair<Integer, Integer> moveRobot(
+  private static Pair<Integer, Integer> moveRobot(
     Cell[][] map,
     Pair<Integer, Integer> robot,
     Pair<Integer, Integer> direction
   ) {
-    boolean canMove = true;
-    boolean encounteredBoxes = false;
+    try {
+      Set<Pair<Integer, Integer>> toMove = push(map, Set.of(robot), direction);
+      Set<Pair<Integer, Integer>> moved = new HashSet<>(toMove.size());
 
-    int curRow = robot.getLeft();
-    int curCol = robot.getRight();
+      Cell[][] newMap = Arrays
+        .stream(map)
+        .map(m -> Arrays.copyOf(m, m.length))
+        .toArray(Cell[][]::new);
 
-    Pair<Integer, Integer> endingSpot = null;
-
-    while (true) {
-      int nextRow = curRow + direction.getLeft();
-      int nextCol = curCol + direction.getRight();
-
-      if (
-        nextRow < 0 ||
-        nextRow >= map.length ||
-        nextCol < 0 ||
-        nextCol >= map[0].length
-      ) {
-        break;
+      for (Pair<Integer, Integer> p : toMove) {
+        Pair<Integer, Integer> newPos = Pair.of(
+          p.getLeft() + direction.getLeft(),
+          p.getRight() + direction.getRight()
+        );
+        moved.add(newPos);
+        newMap[newPos.getLeft()][newPos.getRight()] =
+          map[p.getLeft()][p.getRight()];
+      }
+      for (Pair<Integer, Integer> p : toMove) {
+        if (!moved.contains(p)) {
+          newMap[p.getLeft()][p.getRight()] = Cell.EMPTY;
+        }
       }
 
-      if (map[nextRow][nextCol] == Cell.EMPTY) {
-        endingSpot = Pair.of(nextRow, nextCol);
-        break;
-      } else if (map[nextRow][nextCol] == Cell.WALL) {
-        canMove = false;
-        break;
-      } else {
-        encounteredBoxes = true;
+      for (int i = 0; i < map.length; i++) {
+        for (int j = 0; j < map[i].length; j++) {
+          map[i][j] = newMap[i][j];
+        }
       }
 
-      curRow = nextRow;
-      curCol = nextCol;
-    }
-
-    if (!canMove) {
+      return Pair.of(
+        robot.getLeft() + direction.getLeft(),
+        robot.getRight() + direction.getRight()
+      );
+    } catch (WallException e) {
       return robot;
     }
+  }
 
-    if (encounteredBoxes) {
-      map[endingSpot.getLeft()][endingSpot.getRight()] = Cell.BOX;
-      map[robot.getLeft() + direction.getLeft()][robot.getRight() +
-        direction.getRight()] =
-        Cell.EMPTY;
+  private static Set<Pair<Integer, Integer>> push(
+    Cell[][] map,
+    Set<Pair<Integer, Integer>> moving,
+    Pair<Integer, Integer> direction
+  ) {
+    List<Pair<Integer, Integer>> moved = moving
+      .stream()
+      .map(p ->
+        Pair.of(
+          p.getLeft() + direction.getLeft(),
+          p.getRight() + direction.getRight()
+        )
+      )
+      .toList();
+
+    Set<Pair<Integer, Integer>> pushedByTheseBoxes = new HashSet<>(moving);
+    for (Pair<Integer, Integer> newPosition : moved) {
+      switch (map[newPosition.getLeft()][newPosition.getRight()]) {
+        case WALL -> throw new WallException();
+        case BOX -> pushedByTheseBoxes.add(newPosition);
+        case BOX_LEFT -> {
+          pushedByTheseBoxes.add(
+            Pair.of(newPosition.getLeft(), newPosition.getRight())
+          );
+          pushedByTheseBoxes.add(
+            Pair.of(newPosition.getLeft(), newPosition.getRight() + 1)
+          );
+        }
+        case BOX_RIGHT -> {
+          pushedByTheseBoxes.add(
+            Pair.of(newPosition.getLeft(), newPosition.getRight())
+          );
+          pushedByTheseBoxes.add(
+            Pair.of(newPosition.getLeft(), newPosition.getRight() - 1)
+          );
+        }
+      }
     }
 
-    return Pair.of(
-      robot.getLeft() + direction.getLeft(),
-      robot.getRight() + direction.getRight()
-    );
+    if (pushedByTheseBoxes.size() == moving.size()) {
+      return moving;
+    }
+
+    return push(map, pushedByTheseBoxes, direction);
+  }
+
+  private static class WallException extends RuntimeException {
+
+    public WallException() {
+      super("hit wall :(");
+    }
   }
 
   private enum Cell {
