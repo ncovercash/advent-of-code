@@ -5,17 +5,19 @@ import dev.ncovercash.Solution;
 import java.util.List;
 import org.junit.jupiter.params.provider.Arguments;
 
-class Day25Test extends DayTest {
+class Day12Test extends DayTest {
 
   @Override
   public Solution getInstance() {
-    return new Day25();
+    return new Day12();
   }
 
   static List<Arguments> testCases() {
     return List.of(
-      Arguments.of("y2024/25/example.txt", "3", "skip"),
-      Arguments.of("y2024/25/input.txt", "3127", "skip")
+      Arguments.of("y2024/12/example1.txt", "140", "80"),
+      Arguments.of("y2024/12/example2.txt", "772", "436"),
+      Arguments.of("y2024/12/example3.txt", "1930", "1206"),
+      Arguments.of("y2024/12/input.txt", "1473620", "")
     );
   }
 }
