@@ -22,6 +22,13 @@ public class ArrayUtils {
     return list.stream().map(row -> row.get(col)).toList();
   }
 
+  public static List<Character> getStringColumn(
+    Collection<String> list,
+    int col
+  ) {
+    return list.stream().map(row -> row.charAt(col)).toList();
+  }
+
   public static <T> int countOccurrences(Collection<T> haystack, T needle) {
     return (int) haystack.stream().filter(needle::equals).count();
   }
