@@ -106,7 +106,7 @@ public class Day16 implements Solution {
   }
 
   @ToString
-  public enum Direction {
+  private enum Direction {
     LEFT,
     RIGHT,
     UP,
@@ -114,7 +114,7 @@ public class Day16 implements Solution {
   }
 
   @Data
-  public static class Tile {
+  private static class Tile {
 
     char ch;
 

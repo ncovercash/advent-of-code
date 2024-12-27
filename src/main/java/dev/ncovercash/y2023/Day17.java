@@ -322,7 +322,7 @@ public class Day17 implements Solution {
   }
 
   @ToString
-  public enum Direction {
+  private enum Direction {
     LEFT,
     RIGHT,
     UP,
