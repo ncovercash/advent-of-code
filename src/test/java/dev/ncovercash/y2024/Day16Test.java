@@ -14,10 +14,10 @@ class Day16Test extends DayTest {
 
   static List<Arguments> testCases() {
     return List.of(
-      Arguments.of("y2024/16/example0.txt", "3009", "skip"),
-      Arguments.of("y2024/16/example1.txt", "7036", "skip"),
-      Arguments.of("y2024/16/example2.txt", "11048", "skip"),
-      Arguments.of("y2024/16/input.txt", "85432", "skip")
+      Arguments.of("y2024/16/example0.txt", "3009", "10"),
+      Arguments.of("y2024/16/example1.txt", "7036", "45"),
+      Arguments.of("y2024/16/example2.txt", "11048", "64"),
+      Arguments.of("y2024/16/input.txt", "85432", "465")
     );
   }
 }
