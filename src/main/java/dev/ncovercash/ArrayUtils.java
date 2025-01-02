@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
 import lombok.experimental.UtilityClass;
+import org.apache.commons.lang3.tuple.Pair;
 
 @UtilityClass
 public class ArrayUtils {
@@ -70,5 +71,16 @@ public class ArrayUtils {
       return defaultValue;
     }
     return list.get(r).get(c);
+  }
+
+  // check that a point is legal and map[r][c] is false
+  public static boolean canGoMap(boolean[][] map, Pair<Integer, Integer> p) {
+    return (
+      p.getLeft() >= 0 &&
+      p.getLeft() < map.length &&
+      p.getRight() >= 0 &&
+      p.getRight() < map[0].length &&
+      !map[p.getLeft()][p.getRight()]
+    );
   }
 }

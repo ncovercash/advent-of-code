@@ -1,5 +1,6 @@
 package dev.ncovercash.y2024;
 
+import dev.ncovercash.ArrayUtils;
 import dev.ncovercash.Direction;
 import dev.ncovercash.InputUtils;
 import dev.ncovercash.Solution;
@@ -118,7 +119,7 @@ public class Day16 implements Solution {
           continue;
         }
 
-        if (canGo(map, state.direction().move(state.asPair()))) {
+        if (ArrayUtils.canGoMap(map, state.direction().move(state.asPair()))) {
           newQueue.add(
             new State(
               state.direction().move(state.asPair()).getLeft(),
@@ -130,7 +131,9 @@ public class Day16 implements Solution {
           );
         }
 
-        if (canGo(map, state.direction().cw().move(state.asPair()))) {
+        if (
+          ArrayUtils.canGoMap(map, state.direction().cw().move(state.asPair()))
+        ) {
           newQueue.add(
             new State(
               state.direction().cw().move(state.asPair()).getLeft(),
@@ -142,7 +145,9 @@ public class Day16 implements Solution {
           );
         }
 
-        if (canGo(map, state.direction().ccw().move(state.asPair()))) {
+        if (
+          ArrayUtils.canGoMap(map, state.direction().ccw().move(state.asPair()))
+        ) {
           newQueue.add(
             new State(
               state.direction().ccw().move(state.asPair()).getLeft(),
@@ -159,16 +164,6 @@ public class Day16 implements Solution {
     }
 
     return best;
-  }
-
-  private static boolean canGo(boolean[][] touched, Pair<Integer, Integer> p) {
-    return (
-      p.getLeft() >= 0 &&
-      p.getLeft() < touched.length &&
-      p.getRight() >= 0 &&
-      p.getRight() < touched[0].length &&
-      !touched[p.getLeft()][p.getRight()]
-    );
   }
 
   private record Position(int r, int c, Direction direction) {

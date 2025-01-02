@@ -1,5 +1,8 @@
 package dev.ncovercash;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.apache.commons.lang3.tuple.Pair;
 
 public enum Direction {
@@ -37,5 +40,15 @@ public enum Direction {
 
   public Pair<Integer, Integer> move(Pair<Integer, Integer> p) {
     return move(p.getLeft(), p.getRight());
+  }
+
+  public static Direction[] all() {
+    return new Direction[] { LEFT, RIGHT, UP, DOWN };
+  }
+
+  public static List<Pair<Integer, Integer>> getAllMoves(
+    Pair<Integer, Integer> p
+  ) {
+    return Arrays.stream(all()).map(d -> d.move(p)).toList();
   }
 }
