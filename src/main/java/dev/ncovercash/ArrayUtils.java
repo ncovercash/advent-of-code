@@ -83,4 +83,18 @@ public class ArrayUtils {
       !map[p.getLeft()][p.getRight()]
     );
   }
+
+  // check that a point is legal and map[r][c] is true
+  public static boolean canGoMapInverse(
+    boolean[][] map,
+    Pair<Integer, Integer> p
+  ) {
+    return (
+      p.getLeft() >= 0 &&
+      p.getLeft() < map.length &&
+      p.getRight() >= 0 &&
+      p.getRight() < map[0].length &&
+      map[p.getLeft()][p.getRight()]
+    );
+  }
 }

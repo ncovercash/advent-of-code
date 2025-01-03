@@ -41,6 +41,10 @@ public enum Direction {
     return move(p.getLeft(), p.getRight());
   }
 
+  public Pair<Integer, Integer> move2(Pair<Integer, Integer> p) {
+    return move(move(p));
+  }
+
   public static Direction[] all() {
     return new Direction[] { LEFT, RIGHT, UP, DOWN };
   }
